@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'transaction.dart';
 import 'category_service.dart';
+import 'category_detail_screen.dart';
 
 class SummaryScreen extends StatefulWidget {
   final List<Transaction> transactions;
@@ -430,52 +431,80 @@ class _SummaryScreenState extends State<SummaryScreen> {
         final entry = sorted[i];
         final percentage = entry.value / total;
 
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Text(_getCategoryIcon(entry.key),
-                          style: const TextStyle(fontSize: 18)),
-                      const SizedBox(width: 8),
-                      Text(entry.key,
-                          style: const TextStyle(fontWeight: FontWeight.w500)),
-                    ],
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        'LKR ${_formatAmount(entry.value)}',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: _showingIncome ? Colors.green : Colors.red,
-                        ),
-                      ),
-                      Text(
-                        '${(percentage * 100).toStringAsFixed(1)}%',
-                        style: const TextStyle(fontSize: 12, color: Colors.grey),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              const SizedBox(height: 6),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(4),
-                child: LinearProgressIndicator(
-                  value: percentage,
-                  backgroundColor: Colors.grey[200],
-                  color: colors[i % colors.length],
-                  minHeight: 8,
+        return GestureDetector(
+          onTap: () async {
+            final catTransactions = _filtered
+                .where((t) =>
+            t.title == entry.key &&
+                t.isIncome == _showingIncome)
+                .toList();
+
+            await Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CategoryDetailScreen(
+                  categoryName: entry.key,
+                  categoryIcon: _getCategoryIcon(entry.key),
+                  isIncome: _showingIncome,
+                  transactions: catTransactions,
+                  expenseCategories: widget.expenseCategories,
+                  incomeCategories: widget.incomeCategories,
+                  accounts: widget.accounts,
                 ),
               ),
-            ],
+            );
+          },
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Text(_getCategoryIcon(entry.key),
+                            style: const TextStyle(fontSize: 18)),
+                        const SizedBox(width: 8),
+                        Text(entry.key,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w500)),
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          'LKR ${_formatAmount(entry.value)}',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: _showingIncome
+                                ? Colors.green
+                                : Colors.red,
+                          ),
+                        ),
+                        Text(
+                          '${(percentage * 100).toStringAsFixed(1)}%',
+                          style: const TextStyle(
+                              fontSize: 12, color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 6),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(4),
+                  child: LinearProgressIndicator(
+                    value: percentage,
+                    backgroundColor: Colors.grey[200],
+                    color: colors[i % colors.length],
+                    minHeight: 8,
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       }),
