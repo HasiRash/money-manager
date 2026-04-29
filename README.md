@@ -1,17 +1,24 @@
-# money_manager
+# 💰 Money Manager
 
-A new Flutter project.
+A personal finance tracker app built with Flutter for Android.
 
-## Getting Started
+## Features
+- 📋 Track daily income & expenses
+- 🏷️ Custom categories with emojis
+- 🏦 Multiple accounts (Cash, Card, Bank)
+- 📊 Monthly summaries with pie charts
+- 🔍 Search & filter transactions
+- 📂 Category drill-down in summary
+- 🌙 Dark mode
+- 💾 Backup & restore data
 
-This project is a starting point for a Flutter application.
+## Download
+[Download APK]([YOUR_GOOGLE_DRIVE_LINK_HERE](https://www.linkedin.com/safety/go/?url=https%3A%2F%2Flnkd.in%2FgSxm2iqK&urlhash=7eCi&mt=9bP4Rn4k_Glx_4kjO0tbPGhsXWinoNsd-DJXQGgsiqi0EwVa3rm6cb6aFyza1kEKIQuCcJGYpdy7RuyxBDyoCWn_s49gy40b99pMgYXZsATnnlzTqnesJWf3wOI&isSdui=true&lipi=urn%3Ali%3Apage%3Ad_flagship3_detail_base%3BmeZDqZE9T%2FOwXUolgvarjg%3D%3D))
 
-A few resources to get you started if this is your first Flutter project:
+## Built With
+- Flutter & Dart
+- fl_chart for pie charts
+- file_picker for backup/restore
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Screenshots
+(add screenshots here)
